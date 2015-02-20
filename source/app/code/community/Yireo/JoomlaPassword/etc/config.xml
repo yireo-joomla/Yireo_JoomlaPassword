@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo JoomlaPassword for Magento 
+ *
+ * @author Yireo
+ * @copyright Copyright 2014
+ * @license Yireo EULA (www.yireo.com)
+ * @link http://www.yireo.com
+ */
+-->
+<config>
+    <modules>
+        <Yireo_JoomlaPassword>
+            <version>1.0.2</version>
+        </Yireo_JoomlaPassword>
+    </modules>
+    <global>
+        <helpers>
+            <joomlapassword>
+                <class>Yireo_JoomlaPassword_Helper</class>
+            </joomlapassword>
+            <core>
+                <rewrite>
+                    <data>Yireo_JoomlaPassword_Helper_Data</data>
+                </rewrite>
+            </core>
+        </helpers>
+
+        <models>
+            <joomlapassword>
+                <class>Yireo_JoomlaPassword_Model</class>
+            </joomlapassword>
+            <core>
+                <rewrite>
+                    <encryption>Yireo_JoomlaPassword_Model_Encryption</encryption>
+                </rewrite>
+            </core>
+        </models>
+	</global>
+</config>
