@@ -4,15 +4,15 @@
  * Yireo JoomlaPassword for Magento 
  *
  * @author Yireo
- * @copyright Copyright 2014
- * @license Yireo EULA (www.yireo.com)
- * @link http://www.yireo.com
+ * @copyright Copyright 2015
+ * @license Open Source License
+ * @link https://www.yireo.com
  */
 -->
 <config>
     <modules>
         <Yireo_JoomlaPassword>
-            <version>1.0.2</version>
+            <version>1.1.0</version>
         </Yireo_JoomlaPassword>
     </modules>
     <global>
