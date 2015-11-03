@@ -13,6 +13,9 @@
  */
 class Yireo_JoomlaPassword_Helper_Data extends Mage_Core_Helper_Data
 {
+    /**
+     * @return false|Mage_Core_Model_Abstract|Mage_Core_Model_Encryption
+     */
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
