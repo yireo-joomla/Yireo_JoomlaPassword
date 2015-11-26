@@ -28,7 +28,7 @@ class Yireo_JoomlaPassword_Model_Encryption extends Mage_Core_Model_Encryption
 
         // Joomla PHPass hashes
 		if (strpos($hash, '$P$') === 0) {
-            include_once BP.'lib/JoomlaPassword/PasswordHash.php';
+            include_once BP.'/lib/JoomlaPassword/PasswordHash.php';
             if(class_exists('PasswordHash')) {
                 $phpass = new PasswordHash(10, true);
 	    		return $phpass->CheckPassword($password, $hash);
