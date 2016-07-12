@@ -1,11 +1,11 @@
 <?php
 /**
- * Yireo JoomlaPassword for Magento 
+ * Yireo JoomlaPassword for Magento
  *
  * @author Yireo
  * @copyright Copyright 2015
  * @license Open Source License
- * @link http://www.yireo.com
+ * @link https://www.yireo.com
  */
 
 /**

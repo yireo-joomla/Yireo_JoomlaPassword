@@ -1,11 +1,11 @@
 <?php
 /**
- * Yireo JoomlaPassword for Magento 
+ * Yireo JoomlaPassword for Magento
  *
  * @author Yireo
  * @copyright Copyright 2015
  * @license Open Source License
- * @link http://www.yireo.com
+ * @link https://www.yireo.com
  */
 
 /**
@@ -18,50 +18,23 @@ class Yireo_JoomlaPassword_Model_Encryption extends Mage_Core_Model_Encryption
      *
      * @param string $password
      * @param string $hash
+     *
      * @return bool
      * @throws Exception
      */
     public function validateHash($password, $hash)
     {
-        // Explode the hash
-        $hashArr = explode(':', $hash);
+        $hashingObjects = Mage::getModel('joomlapassword/hashing')->getHashingObjects();
 
-        // Joomla PHPass hashes
-		if (strpos($hash, '$P$') === 0) {
-            include_once BP.'/lib/JoomlaPassword/PasswordHash.php';
-            if(class_exists('PasswordHash')) {
-                $phpass = new PasswordHash(10, true);
-	    		return $phpass->CheckPassword($password, $hash);
+        foreach ($hashingObjects as $hashingObject) {
+            /** @var $hashingObject Yireo_JoomlaPassword_Model_Hashing_Interface */
+            if ($hashingObject->allowHash($hash) == false) {
+                continue;
             }
 
-        // Native PHP password hashing
-		} elseif ($hash[0] == '$' && function_exists('password_verify')) {
-            return password_verify($password, $hash);
-
-        // SHA256 (unsupported)
-        } elseif (substr($hash, 0, 8) == '{SHA256}') {
-            return false; 
-        }
-
-        // Regular hashing
-        switch (count($hashArr)) {
-            case 1:
-                // Original MD5 hashes
-                if(strlen($hash) == 32) {
-                    return $this->hash($password) === $hash;
-                }
-
-            case 2:
-
-                // Original Magento hashing
-                $rt = $this->hash($hashArr[1] . $password) === $hashArr[0];
-
-                // Joomla hashing
-                if($rt == false) $rt = $this->hash($password.$hashArr[1]) === $hashArr[0];
-
-                // Joomla reverse hashing
-                if($rt == false) $rt = $this->hash($password.$hashArr[0]) === $hashArr[1];
-                return $rt;
+            if ($hashingObject->validate($password, $hash)) {
+                return true;
+            }
         }
 
         Mage::throwException('Invalid hash.');
@@ -77,11 +50,29 @@ class Yireo_JoomlaPassword_Model_Encryption extends Mage_Core_Model_Encryption
      *
      * @param string $password
      * @param mixed $salt
+     *
      * @return string
      */
     public function getHash($password, $salt = false)
     {
         $this->setHelper(Mage::helper('joomlapassword'));
-        return parent::getHash($password, $salt);
+        
+        $hashingClasses = Mage::getModel('joomlapassword/hashing')->getHashingClasses();
+        $hashingObjects = Mage::getModel('joomlapassword/hashing')->getHashingObjects();
+
+        if (!in_array($salt, $hashingClasses)) {
+            return parent::getHash($password, $salt);
+        }
+
+        foreach ($hashingObjects as $hashingObject) {
+            /** @var $hashingObject Yireo_JoomlaPassword_Model_Hashing_Interface */
+            $hash = $hashingObject->getHash($password);
+
+            if (!empty($hash)) {
+                return $hash;
+            }
+            
+            // Note: This does not work properly for validating hashes, because of one-way-algorithms
+        }
     }
 }
