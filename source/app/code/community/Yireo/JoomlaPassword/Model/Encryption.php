@@ -37,7 +37,7 @@ class Yireo_JoomlaPassword_Model_Encryption extends Mage_Core_Model_Encryption
             }
         }
 
-        Mage::throwException('Invalid hash.');
+        return parent::validateHash($password, $hash);
     }
 
     /**
