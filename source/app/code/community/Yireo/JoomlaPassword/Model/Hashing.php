@@ -21,9 +21,9 @@ class Yireo_JoomlaPassword_Model_Hashing
         'php',
         'sha',
         'md5',
-        'md5/core',
-        'md5/joomla',
-        'md5/joomlareverse',
+        'md5_core',
+        'md5_joomla',
+        'md5_joomlareverse',
     );
 
     /**

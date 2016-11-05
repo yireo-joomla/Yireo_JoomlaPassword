@@ -24,6 +24,11 @@ class Yireo_JoomlaPassword_Model_Hashing_Md5_Joomla implements Yireo_JoomlaPassw
             return true;
         }
 
+        $hashArr = explode(':', $hash);
+        if (count($hashArr) == 2 && strlen($hashArr[0]) == 32 && strlen($hashArr[1]) == 32) {
+            return true;
+        }
+
         return false;
     }
 
