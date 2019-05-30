@@ -1,0 +1,6 @@
+# Backgrounds
+When you migrate Joomla users to Magento, one of the issues you will have is the usage of encrypted passwords. Joomla uses a different hashing / encryption algorithm to store passwords then Magento does. Copying the Joomla hashed password to Magento will result in an unusable password. Our extension solves this by extending the Magento hashing methods with Joomla hashing algorithms.
+
+Magento uses a salted MD5 password to store a plain-text password safely into the Magento database: The original password receives an additional random string (the salt) and the hash of both the salt plus the password is stored together with an encrypted form of the password. Using this one-way encryption algorithm, passwords are always stored in a secure manner. Joomla uses similar methods. However, the methods that Magento uses are not the same as the methods that Joomla uses.
+
+When you migrate a Joomla site to Magento, and you copy the Joomla user records (using any solution) to Magento, then you will loose your passwords because Magento does not know how to deal with the Joomla password hashing. Our JoomlaPassword extension solves this: It extends the Magento hashing methods with the Joomla hashing, so that Magento suddenly understands Joomla password hashes as well.

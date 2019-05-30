@@ -2,7 +2,7 @@
     "name": "yireo/magento1-joomlapassword",
     "license": "OSL-3.0",
     "type": "magento-module",
-    "homepage": "https://www.yireo.com/software/magento-extensions/joomlapassword",
+    "homepage": "https://github.com/yireo/Yireo_JoomlaPassword",
     "description": "Use Joomla passwords within Magento",
     "keywords":[ "composer-installer", "magento"],
     "authors": [
@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=7.0.0"
     },
     "require-dev":{
         "phpunit/phpunit":"*",
